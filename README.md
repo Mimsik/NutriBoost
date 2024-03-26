@@ -27,4 +27,3 @@ Mates: *Drinceanu Adel Laurentiu si Cercelan Ioana Ariana*
    - NutriBoost încurajează o rutină zilnică echilibrată și sănătoasă, oferind un cadru centralizat pentru înregistrarea și monitorizarea obiceiurilor nutriționale și de fitness ale utilizatorului.
    - Utilizatorii pot stabili obiective, pot urmări progresul pentru a-și îmbunătăți rutina și sănătatea generală.
 
-Link catre macheta: https://www.figma.com/file/8zgv56JwLg0cFK5Xipf008/NutriBOOST?type=design&node-id=0%3A1&mode=design&t=BUmMPVRIOM5WPYkV-1
