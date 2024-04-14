@@ -31,24 +31,12 @@ class LoginPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 50),
-
-                  // logo
-                  const Icon(
-                    Icons.lock,
-                    size: 100,
-                    color: Colors.white, // Set icon color to match your background
-                  ),
-
-                  const SizedBox(height: 50),
-
-                  // welcome back, you've been missed!
-                  Text(
-                    'Welcome back you\'ve been missed!',
-                    style: TextStyle(
-                      color: Colors.white, // Set text color to match your background
-                      fontSize: 16,
-                    ),
+                  const SizedBox(height: 10),
+                  //Logo
+                  Positioned(
+                    left: 250,
+                    top: 0,
+                    child: Image.asset('lib/images/logo.png', width: 200, height: 200),
                   ),
 
                   const SizedBox(height: 25),
@@ -92,36 +80,6 @@ class LoginPage extends StatelessWidget {
                   MyButton(
                     onTap: LogInUser, // Specify your sign in function
                     text: 'Log In', // Text for log in button
-                  ),
-
-                  const SizedBox(height: 50),
-
-                  // or continue with
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Divider(
-                            thickness: 0.5,
-                            color: Colors.white, // Set divider color to match your background
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text(
-                            'Or continue with',
-                            style: TextStyle(color: Colors.white), // Set text color to match your background
-                          ),
-                        ),
-                        Expanded(
-                          child: Divider(
-                            thickness: 0.5,
-                            color: Colors.white, // Set divider color to match your background
-                          ),
-                        ),
-                      ],
-                    ),
                   ),
 
                   const SizedBox(height: 50),
