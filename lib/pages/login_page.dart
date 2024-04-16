@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:nutri_boost/components/my_button.dart';
 import 'package:nutri_boost/components/my_textfield.dart';
 import 'package:nutri_boost/components/square_tile.dart';
+import 'forgot_password_page.dart'; // Import the ForgotPasswordPage
 import 'register_page.dart';
+
 
 class LogInPage extends StatelessWidget {
   LogInPage({Key? key});
@@ -65,15 +67,27 @@ class LogInPage extends StatelessWidget {
 
                   // forgot password?
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 90),
+                    padding: const EdgeInsets.symmetric(horizontal: 100),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text(
-                          'Forgot Password?',
-                          style: TextStyle(
-                              color: Colors
-                                  .black), // Set text color to match your background
+                        GestureDetector(
+                          onTap: () {
+                            // Navigate to ForgotPasswordPage
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ForgotPasswordPage()),
+                            );
+                          },
+                          child: Text(
+                            'Forgot your password?',
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 0, 0, 0), // Change text color to indicate it's a link
+                              decoration: TextDecoration
+                                  .underline, // Add underline to indicate it's clickable
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -90,36 +104,37 @@ class LogInPage extends StatelessWidget {
                   const SizedBox(height: 10),
 
                   // not a member? register now
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'No account yet?',
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
-                      ),
-                      const SizedBox(width: 4),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignUpPage()),
-                          );
-                        },
-                        child: Text(
-                          'Sign Up',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 173, 126, 255),
-                            fontWeight: FontWeight.bold,
-                            decoration:
-                                TextDecoration.underline, // Add underline style
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
+                  // not a member? register now
+Row(
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [
+    Text(
+      'No account yet?',
+      style: TextStyle(
+          color: Colors
+              .black), // Set text color to match your background
+    ),
+    const SizedBox(width: 4),
+    GestureDetector(
+      onTap: () {
+        // Navigate to SignUpPage
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => SignUpPage()),
+        );
+      },
+      child: Text(
+        'Sign Up',
+        style: TextStyle(
+          color: Color.fromARGB(255, 173, 126, 255),
+          fontWeight: FontWeight.bold,
+          decoration: TextDecoration.underline, // Add underline style
+        ),
+      ),
+    ),
+  ],
+),
+
                 ],
               ),
             ),
