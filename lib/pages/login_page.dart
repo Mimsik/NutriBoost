@@ -3,8 +3,8 @@ import 'package:nutri_boost/components/my_button.dart';
 import 'package:nutri_boost/components/my_textfield.dart';
 import 'package:nutri_boost/components/square_tile.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({Key? key});
+class LogInPage extends StatelessWidget {
+  LogInPage({Key? key});
 
   // text editing controllers
   final usernameController = TextEditingController();
@@ -12,7 +12,6 @@ class LoginPage extends StatelessWidget {
 
   // sign user in method
   void LogInUser() {}
-  void SingUpUser() {}
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +60,7 @@ class LoginPage extends StatelessWidget {
 
                   // forgot password?
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 90),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -74,7 +73,7 @@ class LoginPage extends StatelessWidget {
                   ),
 
 
-                  const SizedBox(height: 25),
+                  const SizedBox(height: 40),
 
                   // Log In button
                   MyButton(
@@ -82,7 +81,7 @@ class LoginPage extends StatelessWidget {
                     text: 'Log In', // Text for log in button
                   ),
 
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 10),
 
                   // not a member? register now
                   Row(
