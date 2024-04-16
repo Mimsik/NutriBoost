@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nutri_boost/components/my_button.dart';
 import 'package:nutri_boost/components/my_textfield.dart';
 import 'package:nutri_boost/components/square_tile.dart';
+import 'register_page.dart';
 
 class LogInPage extends StatelessWidget {
   LogInPage({Key? key});
@@ -16,12 +17,15 @@ class LogInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent, // Set background color to transparent
+      backgroundColor:
+          Colors.transparent, // Set background color to transparent
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('lib/images/background_image.jpeg'), // Set your image path here
-            fit: BoxFit.cover, // You can change the BoxFit according to your requirement
+            image: AssetImage(
+                'lib/images/background_image.jpeg'), // Set your image path here
+            fit: BoxFit
+                .cover, // You can change the BoxFit according to your requirement
           ),
         ),
         child: SafeArea(
@@ -35,7 +39,8 @@ class LogInPage extends StatelessWidget {
                   Positioned(
                     left: 250,
                     top: 0,
-                    child: Image.asset('lib/images/logo.png', width: 200, height: 200),
+                    child: Image.asset('lib/images/logo.png',
+                        width: 200, height: 200),
                   ),
 
                   const SizedBox(height: 25),
@@ -66,12 +71,13 @@ class LogInPage extends StatelessWidget {
                       children: [
                         Text(
                           'Forgot Password?',
-                          style: TextStyle(color: Colors.black), // Set text color to match your background
+                          style: TextStyle(
+                              color: Colors
+                                  .black), // Set text color to match your background
                         ),
                       ],
                     ),
                   ),
-
 
                   const SizedBox(height: 40),
 
@@ -89,14 +95,27 @@ class LogInPage extends StatelessWidget {
                     children: [
                       Text(
                         'No account yet?',
-                        style: TextStyle(color: Colors.black), // Set text color to match your background
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
                       ),
                       const SizedBox(width: 4),
-                      const Text(
-                        'Sign Up',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 173, 126, 255),
-                          fontWeight: FontWeight.bold,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SignUpPage()),
+                          );
+                        },
+                        child: Text(
+                          'Sign Up',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 173, 126, 255),
+                            fontWeight: FontWeight.bold,
+                            decoration:
+                                TextDecoration.underline, // Add underline style
+                          ),
                         ),
                       ),
                     ],
