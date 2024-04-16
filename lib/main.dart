@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nutri_boost/pages/login_page.dart';
+import 'package:nutri_boost/pages/register_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,7 +34,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       //home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      home: LoginPage(),
+      home: LogInPage(),
+      //home: SignUpPage(),
     );
   }
 }
