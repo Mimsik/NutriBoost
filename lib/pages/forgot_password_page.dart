@@ -4,24 +4,15 @@ import 'package:nutri_boost/components/my_textfield.dart';
 import 'package:nutri_boost/components/square_tile.dart';
 import 'login_page.dart';
 
-class SignUpPage extends StatelessWidget {
-  SignUpPage({Key? key});
+class ForgotPasswordPage extends StatelessWidget {
+  ForgotPasswordPage({Key? key});
 
   // text editing controllers
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
-  // Sign user up method
-  void signUpUser(BuildContext context) {
-    // Perform sign-up logic here (e.g., validate input, create user account)
-
-    // If sign-up is successful, navigate to the LogInPage
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => LogInPage()),
-      (Route<dynamic> route) => false,
-    );
-  }
+  // sign user in method
+  void ForgotPassword() {}
 
   @override
   Widget build(BuildContext context) {
@@ -54,15 +45,6 @@ class SignUpPage extends StatelessWidget {
 
                   const SizedBox(height: 10),
 
-                  // username textfield
-                  MyTextField(
-                    controller: usernameController,
-                    hintText: 'Name',
-                    obscureText: false,
-                  ),
-
-                  const SizedBox(height: 10),
-
                   // password textfield
                   MyTextField(
                     controller: passwordController,
@@ -75,7 +57,7 @@ class SignUpPage extends StatelessWidget {
                   // username textfield
                   MyTextField(
                     controller: usernameController,
-                    hintText: 'Password',
+                    hintText: 'New Password',
                     obscureText: false,
                   ),
 
@@ -90,21 +72,26 @@ class SignUpPage extends StatelessWidget {
 
                   const SizedBox(height: 40),
 
-                  // Log In button
+                  // Change password button
                   MyButton(
-                    onTap: () => signUpUser(
-                        context), // Pass the context to the signUpUser method
-                    text: 'Sign Up', // Text for the sign up button
+                    onTap: () {
+                      // Navigate to LogInPage
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LogInPage()),
+                      );
+                    },
+                    text: 'Change password', // Text for the button
                   ),
 
                   const SizedBox(height: 10),
 
-                  // not a member? register now
+                  // remembered your password?
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Already have an account?',
+                        'Do you remember your password?',
                         style: TextStyle(
                           color: Colors.black,
                         ),
