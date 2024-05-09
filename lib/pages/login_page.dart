@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:nutri_boost/components/my_button.dart';
 import 'package:nutri_boost/components/my_textfield.dart';
-import 'package:nutri_boost/components/square_tile.dart';
-import 'forgot_password_page.dart'; // Import the ForgotPasswordPage
-import 'register_page.dart';
-
+import 'package:nutri_boost/pages/home_page.dart'; // Asigură-te că această cale este corectă
+import 'package:nutri_boost/pages/forgot_password_page.dart';
+import 'package:nutri_boost/pages/register_page.dart';
 
 class LogInPage extends StatelessWidget {
   LogInPage({Key? key});
+
+    // LogInUser method
+  void LogInUser(BuildContext context) {
+    // Aici vei verifica credențialele și vei naviga către HomePage dacă sunt corecte.
+    // Pentru demonstrație, presupunem că autentificarea a reușit și navigăm direct.
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const HomePage()),
+    );
+  }
 
   // text editing controllers
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
-  // sign user in method
-  void LogInUser() {}
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +90,8 @@ class LogInPage extends StatelessWidget {
                           child: Text(
                             'Forgot your password?',
                             style: TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0), // Change text color to indicate it's a link
+                              color: Color.fromARGB(255, 0, 0,
+                                  0), // Change text color to indicate it's a link
                               decoration: TextDecoration
                                   .underline, // Add underline to indicate it's clickable
                             ),
@@ -97,44 +105,45 @@ class LogInPage extends StatelessWidget {
 
                   // Log In button
                   MyButton(
-                    onTap: LogInUser, // Specify your sign in function
-                    text: 'Log In', // Text for log in button
+                    onTap: () => LogInUser(context), // Modifică aici pentru a trece contextul
+                    text: 'Log In',
                   ),
 
                   const SizedBox(height: 10),
 
                   // not a member? register now
                   // not a member? register now
-Row(
-  mainAxisAlignment: MainAxisAlignment.center,
-  children: [
-    Text(
-      'No account yet?',
-      style: TextStyle(
-          color: Colors
-              .black), // Set text color to match your background
-    ),
-    const SizedBox(width: 4),
-    GestureDetector(
-      onTap: () {
-        // Navigate to SignUpPage
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => SignUpPage()),
-        );
-      },
-      child: Text(
-        'Sign Up',
-        style: TextStyle(
-          color: Color.fromARGB(255, 173, 126, 255),
-          fontWeight: FontWeight.bold,
-          decoration: TextDecoration.underline, // Add underline style
-        ),
-      ),
-    ),
-  ],
-),
-
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'No account yet?',
+                        style: TextStyle(
+                            color: Colors
+                                .black), // Set text color to match your background
+                      ),
+                      const SizedBox(width: 4),
+                      GestureDetector(
+                        onTap: () {
+                          // Navigate to SignUpPage
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SignUpPage()),
+                          );
+                        },
+                        child: Text(
+                          'Sign Up',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 173, 126, 255),
+                            fontWeight: FontWeight.bold,
+                            decoration:
+                                TextDecoration.underline, // Add underline style
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

@@ -21,7 +21,7 @@ class MyTextField extends StatelessWidget {
         obscureText: obscureText,
         decoration: InputDecoration(
             enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black),
+              borderSide: BorderSide(color: Colors.white),
             ),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.black),
@@ -29,7 +29,7 @@ class MyTextField extends StatelessWidget {
             fillColor: Color.fromARGB(130, 0, 0, 0),
             filled: true,
             hintText: hintText,
-            hintStyle: TextStyle(color:  Colors.white, fontWeight: FontWeight.bold)),
+            hintStyle: TextStyle(color:  const Color.fromARGB(255, 255, 255, 255), fontWeight: FontWeight.bold)),
       ),
     );
   }

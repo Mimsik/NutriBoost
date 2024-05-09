@@ -8,8 +8,12 @@ class SignUpPage extends StatelessWidget {
   SignUpPage({Key? key});
 
   // text editing controllers
+  final emailController = TextEditingController();
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+  final passwordConfirmationController = TextEditingController();
+
+
 
   // Sign user up method
   void signUpUser(BuildContext context) {
@@ -65,25 +69,25 @@ class SignUpPage extends StatelessWidget {
 
                   // password textfield
                   MyTextField(
-                    controller: passwordController,
+                    controller: emailController,
                     hintText: 'Email',
-                    obscureText: true,
+                    obscureText: false,
                   ),
 
                   const SizedBox(height: 10),
 
                   // username textfield
                   MyTextField(
-                    controller: usernameController,
+                    controller: passwordController,
                     hintText: 'Password',
-                    obscureText: false,
+                    obscureText: true,
                   ),
 
                   const SizedBox(height: 10),
 
                   // password textfield
                   MyTextField(
-                    controller: passwordController,
+                    controller: passwordConfirmationController,
                     hintText: 'Confirm password',
                     obscureText: true,
                   ),
