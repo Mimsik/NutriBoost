@@ -1,17 +1,15 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' show AssetImage, BoxDecoration, BoxFit, BuildContext, Center, Color, Colors, Column, Container, DecorationImage, EdgeInsets, FontWeight, GestureDetector, Image, Key, MainAxisAlignment, MaterialPageRoute, MediaQuery, Navigator, Padding, Positioned, Row, SafeArea, Scaffold, SingleChildScrollView, SizedBox, StatelessWidget, Text, TextDecoration, TextEditingController, TextStyle, Widget;
 import 'package:nutri_boost/components/my_button.dart';
 import 'package:nutri_boost/components/my_textfield.dart';
-import 'package:nutri_boost/pages/home_page.dart'; // Asigură-te că această cale este corectă
+import 'package:nutri_boost/pages/home_page.dart';
 import 'package:nutri_boost/pages/forgot_password_page.dart';
 import 'package:nutri_boost/pages/register_page.dart';
 
 class LogInPage extends StatelessWidget {
   LogInPage({Key? key});
 
-    // LogInUser method
+  // LogInUser method
   void LogInUser(BuildContext context) {
-    // Aici vei verifica credențialele și vei naviga către HomePage dacă sunt corecte.
-    // Pentru demonstrație, presupunem că autentificarea a reușit și navigăm direct.
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const HomePage()),
@@ -22,19 +20,18 @@ class LogInPage extends StatelessWidget {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      backgroundColor:
-          Colors.transparent, // Set background color to transparent
+      backgroundColor: Colors.transparent,
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(
-                'lib/images/background_image.jpeg'), // Set your image path here
-            fit: BoxFit
-                .cover, // You can change the BoxFit according to your requirement
+            image: AssetImage('lib/images/background_image.jpeg'),
+            fit: BoxFit.cover,
           ),
         ),
         child: SafeArea(
@@ -43,57 +40,65 @@ class LogInPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 10),
-                  //Logo
+                  SizedBox(height: screenHeight * 0.02),
+
+                  // Logo
                   Positioned(
-                    left: 250,
-                    top: 0,
-                    child: Image.asset('lib/images/logo.png',
-                        width: 200, height: 200),
+                    left: screenWidth * 0.65,
+                    top: screenHeight * 0.02,
+                    child: Image.asset(
+                      'lib/images/logo.png',
+                      width: screenWidth * 0.5,
+                      height: screenHeight * 0.25,
+                    ),
                   ),
 
-                  const SizedBox(height: 25),
+                  SizedBox(height: screenHeight * 0.05),
 
                   // username textfield
-                  MyTextField(
-                    controller: usernameController,
-                    hintText: 'Email',
-                    obscureText: false,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+                    child: MyTextField(
+                      controller: usernameController,
+                      hintText: 'Email',
+                      obscureText: false,
+                    ),
                   ),
 
-                  const SizedBox(height: 10),
+                  SizedBox(height: screenHeight * 0.02),
 
                   // password textfield
-                  MyTextField(
-                    controller: passwordController,
-                    hintText: 'Password',
-                    obscureText: true,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+                    child: MyTextField(
+                      controller: passwordController,
+                      hintText: 'Password',
+                      obscureText: true,
+                    ),
                   ),
 
-                  const SizedBox(height: 10),
+                  SizedBox(height: screenHeight * 0.02),
 
                   // forgot password?
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 100),
+                    padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         GestureDetector(
                           onTap: () {
-                            // Navigate to ForgotPasswordPage
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ForgotPasswordPage()),
+                                builder: (context) => ForgotPasswordPage(),
+                              ),
                             );
                           },
                           child: Text(
                             'Forgot your password?',
                             style: TextStyle(
-                              color: Color.fromARGB(255, 0, 0,
-                                  0), // Change text color to indicate it's a link
-                              decoration: TextDecoration
-                                  .underline, // Add underline to indicate it's clickable
+                              color: Colors.black,
+                              decoration: TextDecoration.underline,
                             ),
                           ),
                         ),
@@ -101,35 +106,32 @@ class LogInPage extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 40),
+                  SizedBox(height: screenHeight * 0.05),
 
                   // Log In button
                   MyButton(
-                    onTap: () => LogInUser(context), // Modifică aici pentru a trece contextul
+                    onTap: () => LogInUser(context),
                     text: 'Log In',
                   ),
 
-                  const SizedBox(height: 10),
+                  SizedBox(height: screenHeight * 0.02),
 
-                  // not a member? register now
                   // not a member? register now
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         'No account yet?',
-                        style: TextStyle(
-                            color: Colors
-                                .black), // Set text color to match your background
+                        style: TextStyle(color: Colors.black),
                       ),
-                      const SizedBox(width: 4),
+                      SizedBox(width: screenWidth * 0.01),
                       GestureDetector(
                         onTap: () {
-                          // Navigate to SignUpPage
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SignUpPage()),
+                              builder: (context) => SignUpPage(),
+                            ),
                           );
                         },
                         child: Text(
@@ -137,8 +139,7 @@ class LogInPage extends StatelessWidget {
                           style: TextStyle(
                             color: Color.fromARGB(255, 173, 126, 255),
                             fontWeight: FontWeight.bold,
-                            decoration:
-                                TextDecoration.underline, // Add underline style
+                            decoration: TextDecoration.underline,
                           ),
                         ),
                       ),
