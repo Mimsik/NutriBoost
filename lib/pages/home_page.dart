@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'account_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -92,7 +93,52 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       drawer: Drawer(
-        // Meniul tău Drawer aici
+        child: Container(
+          width: screenWidth * 0.6, // 60% din lățimea ecranului
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(color: Colors.black),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Buton pentru închidere meniu
+              Padding(
+                padding: EdgeInsets.all(screenWidth * 0.02),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: GestureDetector(
+                    onTap: () => Navigator.of(context).pop(),
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.black),
+                        color: Colors.white,
+                      ),
+                      child: Center(
+                        child: Icon(
+                          Icons.arrow_back,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: screenHeight * 0.02),
+              _buildMenuButton('Search macronutrients', screenWidth),
+              SizedBox(height: screenHeight * 0.01),
+              _buildMenuButton('Account', screenWidth),
+              SizedBox(height: screenHeight * 0.01),
+              _buildMenuButton('Settings', screenWidth),
+              Spacer(),
+              _buildMenuButton('Logout', screenWidth),
+              SizedBox(height: screenHeight * 0.02),
+            ],
+          ),
+        ),
       ),
       body: Stack(
         children: [
@@ -103,10 +149,41 @@ class _HomePageState extends State<HomePage> {
               fit: BoxFit.cover,
             ),
           ),
+          // Meniu buton
+          Positioned(
+            top: 16,
+            left: 16,
+            child: Builder(
+              builder: (context) => GestureDetector(
+                onTap: () => Scaffold.of(context).openDrawer(),
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.black),
+                    color: Colors.white,
+                  ),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(width: 20, height: 2, color: Colors.black),
+                        SizedBox(height: 4),
+                        Container(width: 20, height: 2, color: Colors.black),
+                        SizedBox(height: 4),
+                        Container(width: 20, height: 2, color: Colors.black),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
           // Positioned text messages
           Positioned(
             left: 93 / 411 * screenWidth,
-            top: 182 / 731 * screenHeight,
+            top: (182 - 80) / 731 * screenHeight, // ridicat mai sus
             child: Text(
               'Workout Days Check',
               style: TextStyle(
@@ -120,7 +197,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Positioned(
             left: 70 / 411 * screenWidth,
-            top: 205 / 731 * screenHeight,
+            top: (205 - 80) / 731 * screenHeight, // ridicat mai sus
             child: Stack(
               children: [
                 // Text cu contur negru
@@ -152,74 +229,51 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Positioned(
-  left: 148 / 411 * screenWidth,
-  top: 280 / 731 * screenHeight,
-  child: Container(
-    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-    decoration: BoxDecoration(
-      color: Colors.white, // Fundal alb
-      borderRadius: BorderRadius.circular(8.0), // Colțuri rotunjite
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
-          'Workout Strike:',
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'JosefinSans',
-            color: Colors.black,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        SizedBox(height: 4), // Spațiu între text și număr
-        Text(
-          '$_checkedDaysCount/$_daysInMonth',
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'JosefinSans',
-            color: Colors.black,
-          ),
-          textAlign: TextAlign.center,
-        ),
-      ],
-    ),
-  ),
-),
-          Positioned(
-            left: 178 / 411 * screenWidth,
-            top: 296 / 731 * screenHeight,
+            left: 148 / 411 * screenWidth,
+            top: (280 - 80) / 731 * screenHeight, // ridicat mai sus
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: Colors.white, // Fundal alb
-                borderRadius: BorderRadius.circular(8.0), // Colțuri rotunjite
+                borderRadius: BorderRadius.circular(15.0), // Colțuri rotunjite
               ),
-              child: Text(
-                '$_checkedDaysCount/$_daysInMonth',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'JosefinSans',
-                  color: Colors.black,
-                ),
-                textAlign: TextAlign.center,
+              child: Column(
+                children: [
+                  Text(
+                    'Workout strike:',
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'JosefinSans',
+                      color: Colors.black,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    '$_checkedDaysCount/$_daysInMonth',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'JosefinSans',
+                      color: Colors.black,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
             ),
           ),
           // Positioned calendar
           Positioned(
             left: 13 / 411 * screenWidth,
-            top: 386 / 731 * screenHeight,
-            width: 371 / 411 * screenWidth,
-            height: 377 / 731 * screenHeight,
+            top: 320 / 731 * screenHeight,
+            width: 380 / 411 * screenWidth, // lățit calendarul
+            height: 400 / 731 * screenHeight, // lățit calendarul
             child: Container(
               padding: EdgeInsets.all(screenWidth * 0.02),
               decoration: BoxDecoration(
                 color: Color(0xFF6E944F), // Fundalul calendarului
-                borderRadius: BorderRadius.circular(screenWidth * 0.03), // Colțurile rotunjite ale calendarului
+                borderRadius: BorderRadius.circular(screenWidth * 0.07), // Colțurile rotunjite ale calendarului
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black26,
@@ -271,16 +325,17 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.white, // Zilele de sărbătoare albe
                       shape: BoxShape.circle, // Colțurile rotunjite pentru zilele de sărbătoare
                     ),
-                    defaultTextStyle: TextStyle(color: Colors.black),
-                    weekendTextStyle: TextStyle(color: Colors.black),
-                    holidayTextStyle: TextStyle(color: Colors.black),
-                    outsideTextStyle: TextStyle(color: Colors.grey),
+                    defaultTextStyle: TextStyle(color: Colors.black, fontFamily: 'JosefinSans'),
+                    weekendTextStyle: TextStyle(color: Colors.black, fontFamily: 'JosefinSans'),
+                    holidayTextStyle: TextStyle(color: Colors.black, fontFamily: 'JosefinSans'),
+                    outsideTextStyle: TextStyle(color: Colors.grey, fontFamily: 'JosefinSans'),
                   ),
                   headerStyle: HeaderStyle(
                     formatButtonVisible: false,
                     titleTextStyle: TextStyle(
-                      fontSize: screenWidth * 0.06, 
-                      color: Colors.white
+                      fontSize: screenWidth * 0.06,
+                      fontFamily: 'JosefinSans',
+                      color: Colors.white,
                     ), // Mărește textul lunii curente
                     leftChevronIcon: Icon(Icons.chevron_left, color: Colors.white),
                     rightChevronIcon: Icon(Icons.chevron_right, color: Colors.white),
@@ -307,6 +362,45 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildMenuButton(String text, double screenWidth) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: screenWidth * 0.01), // Distanța dintre butoane
+      child: Center(
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.black,
+            foregroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(screenWidth * 0.06),
+            ),
+            minimumSize: Size(screenWidth * 0.7 * 0.6, 2 * screenWidth * 0.01), // Setarea dimensiunii butoanelor la 70% din lățimea drawerului
+          ),
+          onPressed: () {
+            if (text == 'Account') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AccountPage()),
+              );
+            } else if (text == 'Settings') {
+              // Navigare la pagina de Settings
+            } else if (text == 'Search macronutrients') {
+              // Navigare la pagina de Search macronutrients
+            } else if (text == 'Logout') {
+              // Funcționalitate pentru logout
+            }
+          },
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: screenWidth * 0.02),
+            child: Text(
+              text,
+              style: TextStyle(fontSize: screenWidth * 0.04, fontFamily: 'JosefinSans'),
+            ),
+          ),
+        ),
       ),
     );
   }
