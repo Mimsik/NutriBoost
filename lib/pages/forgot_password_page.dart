@@ -8,8 +8,10 @@ class ForgotPasswordPage extends StatelessWidget {
   ForgotPasswordPage({Key? key});
 
   // text editing controllers
+  final emailController = TextEditingController();
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+  final passwordConfirmationController = TextEditingController();
 
   // sign user in method
   void ForgotPassword() {}
@@ -47,25 +49,25 @@ class ForgotPasswordPage extends StatelessWidget {
 
                   // password textfield
                   MyTextField(
-                    controller: passwordController,
+                    controller: emailController,
                     hintText: 'Email',
-                    obscureText: true,
+                    obscureText: false,
                   ),
 
                   const SizedBox(height: 10),
 
                   // username textfield
                   MyTextField(
-                    controller: usernameController,
+                    controller: passwordController,
                     hintText: 'New Password',
-                    obscureText: false,
+                    obscureText: true,
                   ),
 
                   const SizedBox(height: 10),
 
                   // password textfield
                   MyTextField(
-                    controller: passwordController,
+                    controller: passwordConfirmationController,
                     hintText: 'Confirm password',
                     obscureText: true,
                   ),

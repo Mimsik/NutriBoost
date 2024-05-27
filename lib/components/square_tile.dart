@@ -9,16 +9,19 @@ class SquareTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(screenWidth * 0.05), // Dinamic padding
       decoration: BoxDecoration(
         border: Border.all(color: Colors.white),
-        borderRadius: BorderRadius.circular(26),
+        borderRadius: BorderRadius.circular(screenWidth * 0.065), // Dinamic border radius
         color: Colors.grey[200],
       ),
       child: Image.asset(
         imagePath,
-        height: 40,
+        height: screenHeight * 0.05, // Dinamic height
       ),
     );
   }
