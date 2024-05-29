@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:nutri_boost/pages/search_page.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'account_page.dart';
+import 'login_page.dart'; // Ensure you have a login page to navigate to after logout
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,7 +19,8 @@ class _HomePageState extends State<HomePage> {
   Map<DateTime, List<String>> _events = {}; // Evenimentele tale
   int _workoutStreak = 0;
   int _checkedDaysCount = 0;
-  int _daysInMonth = DateUtils.getDaysInMonth(DateTime.now().year, DateTime.now().month);
+  int _daysInMonth =
+      DateUtils.getDaysInMonth(DateTime.now().year, DateTime.now().month);
 
   @override
   void initState() {
@@ -182,8 +186,8 @@ class _HomePageState extends State<HomePage> {
           ),
           // Positioned text messages
           Positioned(
-            left: 93 / 411 * screenWidth,
-            top: (182 - 80) / 731 * screenHeight, // ridicat mai sus
+            left: 75 / 411 * screenWidth,
+            top: (180 - 80) / 540 * screenHeight, // ridicat mai sus
             child: Text(
               'Workout Days Check',
               style: TextStyle(
@@ -196,8 +200,8 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Positioned(
-            left: 70 / 411 * screenWidth,
-            top: (205 - 80) / 731 * screenHeight, // ridicat mai sus
+            left: 45 / 411 * screenWidth,
+            top: (205 - 80) / 550 * screenHeight, // ridicat mai sus
             child: Stack(
               children: [
                 // Text cu contur negru
@@ -229,13 +233,13 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Positioned(
-            left: 148 / 411 * screenWidth,
-            top: (280 - 80) / 731 * screenHeight, // ridicat mai sus
+            left: 125 / 411 * screenWidth,
+            top: (310 - 80) / 731 * screenHeight, // ridicat mai sus
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+              padding: EdgeInsets.symmetric(horizontal: 7.0, vertical: 0.01),
               decoration: BoxDecoration(
                 color: Colors.white, // Fundal alb
-                borderRadius: BorderRadius.circular(15.0), // Colțuri rotunjite
+                borderRadius: BorderRadius.circular(17.0), // Colțuri rotunjite
               ),
               child: Column(
                 children: [
@@ -265,25 +269,27 @@ class _HomePageState extends State<HomePage> {
           ),
           // Positioned calendar
           Positioned(
-            left: 13 / 411 * screenWidth,
-            top: 320 / 731 * screenHeight,
+            left: 17 / 411 * screenWidth,
+            top: 330 / 731 * screenHeight,
             width: 380 / 411 * screenWidth, // lățit calendarul
-            height: 400 / 731 * screenHeight, // lățit calendarul
+            height: 360 / 731 * screenHeight, // lățit calendarul
             child: Container(
-              padding: EdgeInsets.all(screenWidth * 0.02),
+              padding: EdgeInsets.all(screenWidth * 0.04),
               decoration: BoxDecoration(
                 color: Color(0xFF6E944F), // Fundalul calendarului
-                borderRadius: BorderRadius.circular(screenWidth * 0.07), // Colțurile rotunjite ale calendarului
+                borderRadius: BorderRadius.circular(
+                    screenWidth * 0.07), // Colțurile rotunjite ale calendarului
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black26,
-                    blurRadius: screenWidth * 0.03,
+                    blurRadius: screenWidth * 0.05,
                     offset: Offset(0, screenWidth * 0.01),
                   ),
                 ],
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(screenWidth * 0.03), // Colțurile rotunjite pentru a aplica și la copii
+                borderRadius: BorderRadius.circular(screenWidth *
+                    0.03), // Colțurile rotunjite pentru a aplica și la copii
                 child: TableCalendar(
                   firstDay: DateTime.utc(2010, 10, 16),
                   lastDay: DateTime.utc(2030, 3, 14),
@@ -305,7 +311,7 @@ class _HomePageState extends State<HomePage> {
                   calendarStyle: CalendarStyle(
                     // Customizează stilul calendarului aici
                     todayDecoration: BoxDecoration(
-                      color: Colors.orange,
+                      color: Color.fromARGB(255, 251, 184, 83),
                       shape: BoxShape.circle,
                     ),
                     selectedDecoration: BoxDecoration(
@@ -319,16 +325,32 @@ class _HomePageState extends State<HomePage> {
                     ),
                     weekendDecoration: BoxDecoration(
                       color: Colors.white, // Zilele de weekend albe
-                      shape: BoxShape.circle, // Colțurile rotunjite pentru zilele de weekend
+                      shape: BoxShape
+                          .circle, // Colțurile rotunjite pentru zilele de weekend
                     ),
                     holidayDecoration: BoxDecoration(
                       color: Colors.white, // Zilele de sărbătoare albe
-                      shape: BoxShape.circle, // Colțurile rotunjite pentru zilele de sărbătoare
+                      shape: BoxShape
+                          .circle, // Colțurile rotunjite pentru zilele de sărbătoare
                     ),
-                    defaultTextStyle: TextStyle(color: Colors.black, fontFamily: 'JosefinSans'),
-                    weekendTextStyle: TextStyle(color: Colors.black, fontFamily: 'JosefinSans'),
-                    holidayTextStyle: TextStyle(color: Colors.black, fontFamily: 'JosefinSans'),
-                    outsideTextStyle: TextStyle(color: Colors.grey, fontFamily: 'JosefinSans'),
+                    defaultTextStyle: TextStyle(
+                        color: Colors.black, fontFamily: 'JosefinSans'),
+                    weekendTextStyle: TextStyle(
+                        color: Colors.black, fontFamily: 'JosefinSans'),
+                    holidayTextStyle: TextStyle(
+                        color: Colors.black, fontFamily: 'JosefinSans'),
+                    outsideTextStyle: TextStyle(
+                        color: Colors.grey, fontFamily: 'JosefinSans'),
+                    cellMargin: EdgeInsets.all(
+                        4.0), // Reduce the margin between cells to decrease the distance between weeks
+                  ),
+                  daysOfWeekStyle: DaysOfWeekStyle(
+                    weekdayStyle: TextStyle(
+                        color: Colors.grey[800],
+                        fontFamily: 'JosefinSans'), // Darker gray for weekdays
+                    weekendStyle: TextStyle(
+                        color: Colors.grey[800],
+                        fontFamily: 'JosefinSans'), // Darker gray for weekends
                   ),
                   headerStyle: HeaderStyle(
                     formatButtonVisible: false,
@@ -337,8 +359,10 @@ class _HomePageState extends State<HomePage> {
                       fontFamily: 'JosefinSans',
                       color: Colors.white,
                     ), // Mărește textul lunii curente
-                    leftChevronIcon: Icon(Icons.chevron_left, color: Colors.white),
-                    rightChevronIcon: Icon(Icons.chevron_right, color: Colors.white),
+                    leftChevronIcon:
+                        Icon(Icons.chevron_left, color: Colors.white),
+                    rightChevronIcon:
+                        Icon(Icons.chevron_right, color: Colors.white),
                     decoration: BoxDecoration(
                       color: Color(0xFF6E944F),
                     ),
@@ -353,7 +377,8 @@ class _HomePageState extends State<HomePage> {
                   onPageChanged: (focusedDay) {
                     setState(() {
                       _focusedDay = focusedDay;
-                      _daysInMonth = DateUtils.getDaysInMonth(focusedDay.year, focusedDay.month);
+                      _daysInMonth = DateUtils.getDaysInMonth(
+                          focusedDay.year, focusedDay.month);
                       _updateCheckedDaysCount();
                     });
                   },
@@ -368,7 +393,8 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildMenuButton(String text, double screenWidth) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: screenWidth * 0.01), // Distanța dintre butoane
+      padding: EdgeInsets.symmetric(
+          vertical: screenWidth * 0.01), // Distanța dintre butoane
       child: Center(
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
@@ -377,9 +403,13 @@ class _HomePageState extends State<HomePage> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(screenWidth * 0.06),
             ),
-            minimumSize: Size(screenWidth * 0.7 * 0.6, 2 * screenWidth * 0.01), // Setarea dimensiunii butoanelor la 70% din lățimea drawerului
+            minimumSize: Size(
+                screenWidth * 0.7 * 0.6,
+                2 *
+                    screenWidth *
+                    0.01), // Setarea dimensiunii butoanelor la 70% din lățimea drawerului
           ),
-          onPressed: () {
+          onPressed: () async {
             if (text == 'Account') {
               Navigator.push(
                 context,
@@ -388,16 +418,26 @@ class _HomePageState extends State<HomePage> {
             } else if (text == 'Settings') {
               // Navigare la pagina de Settings
             } else if (text == 'Search macronutrients') {
-              // Navigare la pagina de Search macronutrients
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SearchPage()),
+              );
             } else if (text == 'Logout') {
-              // Funcționalitate pentru logout
+              // Logout functionality
+              await FirebaseAuth.instance.signOut();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => LogInPage()),
+                (Route<dynamic> route) => false,
+              );
             }
           },
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: screenWidth * 0.02),
             child: Text(
               text,
-              style: TextStyle(fontSize: screenWidth * 0.04, fontFamily: 'JosefinSans'),
+              style: TextStyle(
+                  fontSize: screenWidth * 0.04, fontFamily: 'JosefinSans'),
             ),
           ),
         ),

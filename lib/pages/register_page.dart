@@ -60,6 +60,9 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor:
           Colors.transparent, // Set background color to transparent
@@ -78,56 +81,80 @@ class SignUpPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 10),
-                  //Logo
-                  Image.asset('lib/images/logo.png', width: 200, height: 200),
+                  SizedBox(height: screenHeight * 0.02),
+                  // Logo
+                  Image.asset('lib/images/logo.png',
+                      width: screenWidth * 0.5, height: screenHeight * 0.25),
 
-                  const SizedBox(height: 10),
+                  SizedBox(height: screenHeight * 0.05),
 
                   // username textfield
-                  MyTextField(
-                    controller: usernameController,
-                    hintText: 'Name',
-                    obscureText: false,
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+                    child: MyTextField(
+                      controller: usernameController,
+                      hintText: 'Name',
+                      obscureText: false,
+                    ),
                   ),
 
-                  const SizedBox(height: 10),
+                  SizedBox(height: screenHeight * 0.02),
 
                   // email textfield
-                  MyTextField(
-                    controller: emailController,
-                    hintText: 'Email',
-                    obscureText: false,
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+                    child: MyTextField(
+                      controller: emailController,
+                      hintText: 'Email',
+                      obscureText: false,
+                    ),
                   ),
 
-                  const SizedBox(height: 10),
+                  SizedBox(height: screenHeight * 0.02),
 
                   // password textfield
-                  MyTextField(
-                    controller: passwordController,
-                    hintText: 'Password',
-                    obscureText: true,
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+                    child: MyTextField(
+                      controller: passwordController,
+                      hintText: 'Password',
+                      obscureText: true,
+                    ),
                   ),
 
-                  const SizedBox(height: 10),
+                  SizedBox(height: screenHeight * 0.02),
 
                   // confirm password textfield
-                  MyTextField(
-                    controller: passwordConfirmationController,
-                    hintText: 'Confirm password',
-                    obscureText: true,
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+                    child: MyTextField(
+                      controller: passwordConfirmationController,
+                      hintText: 'Confirm password',
+                      obscureText: true,
+                    ),
                   ),
 
-                  const SizedBox(height: 40),
+                  SizedBox(height: screenHeight * 0.05),
 
                   // Sign Up button
-                  MyButton(
-                    onTap: () => signUpUser(
-                        context), // Pass the context to the signUpUser method
-                    text: 'Sign Up', // Text for the sign up button
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: MyButton(
+                        onTap: () => signUpUser(
+                            context), // Pass the context to the signUpUser method
+                        text: 'Sign Up', // Text for the sign up button
+                      ),
+                    ),
                   ),
 
-                  const SizedBox(height: 10),
+                  SizedBox(height: screenHeight * 0.02),
 
                   // already a member? log in now
                   Row(
@@ -137,9 +164,10 @@ class SignUpPage extends StatelessWidget {
                         'Already have an account?',
                         style: TextStyle(
                           color: Colors.black,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(width: 4),
+                      SizedBox(width: screenWidth * 0.01),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -151,7 +179,7 @@ class SignUpPage extends StatelessWidget {
                         child: Text(
                           'Log In',
                           style: TextStyle(
-                            color: Color.fromARGB(255, 173, 126, 255),
+                            color: Color.fromARGB(255, 129, 61, 247),
                             fontWeight: FontWeight.bold,
                             decoration:
                                 TextDecoration.underline, // Add underline style
@@ -159,7 +187,7 @@ class SignUpPage extends StatelessWidget {
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
