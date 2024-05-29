@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart' show AssetImage, BoxDecoration, BoxFit, BuildContext, Center, Color, Colors, Column, Container, DecorationImage, EdgeInsets, FontWeight, GestureDetector, Image, Key, MainAxisAlignment, MaterialPageRoute, MediaQuery, Navigator, Padding, Positioned, Row, SafeArea, Scaffold, SingleChildScrollView, SizedBox, StatelessWidget, Text, TextDecoration, TextEditingController, TextStyle, Widget;
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:nutri_boost/components/my_button.dart';
 import 'package:nutri_boost/components/my_textfield.dart';
 import 'package:nutri_boost/pages/home_page.dart';
@@ -8,17 +9,44 @@ import 'package:nutri_boost/pages/register_page.dart';
 class LogInPage extends StatelessWidget {
   LogInPage({Key? key});
 
-  // LogInUser method
-  void LogInUser(BuildContext context) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const HomePage()),
-    );
-  }
-
   // text editing controllers
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  // LogInUser method
+  void logInUser(BuildContext context) async {
+    final email = emailController.text.trim();
+    final password = passwordController.text.trim();
+
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      // If login is successful, navigate to the HomePage
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomePage()),
+      );
+    } on FirebaseAuthException catch (e) {
+      String message;
+      if (e.code == 'user-not-found') {
+        message = 'No user found for that email.';
+      } else if (e.code == 'wrong-password') {
+        message = 'Wrong password provided.';
+      } else {
+        message = 'An error occurred. Please try again.';
+      }
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(message),
+      ));
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('An error occurred. Please try again.'),
+      ));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,23 +71,20 @@ class LogInPage extends StatelessWidget {
                   SizedBox(height: screenHeight * 0.02),
 
                   // Logo
-                  Positioned(
-                    left: screenWidth * 0.65,
-                    top: screenHeight * 0.02,
-                    child: Image.asset(
-                      'lib/images/logo.png',
-                      width: screenWidth * 0.5,
-                      height: screenHeight * 0.25,
-                    ),
+                  Image.asset(
+                    'lib/images/logo.png',
+                    width: screenWidth * 0.5,
+                    height: screenHeight * 0.25,
                   ),
 
                   SizedBox(height: screenHeight * 0.05),
 
-                  // username textfield
+                  // email textfield
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
                     child: MyTextField(
-                      controller: usernameController,
+                      controller: emailController,
                       hintText: 'Email',
                       obscureText: false,
                     ),
@@ -69,7 +94,8 @@ class LogInPage extends StatelessWidget {
 
                   // password textfield
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
                     child: MyTextField(
                       controller: passwordController,
                       hintText: 'Password',
@@ -81,7 +107,8 @@ class LogInPage extends StatelessWidget {
 
                   // forgot password?
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -110,7 +137,7 @@ class LogInPage extends StatelessWidget {
 
                   // Log In button
                   MyButton(
-                    onTap: () => LogInUser(context),
+                    onTap: () => logInUser(context),
                     text: 'Log In',
                   ),
 

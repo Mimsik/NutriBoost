@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nutri_boost/components/my_button.dart';
 import 'package:nutri_boost/components/my_textfield.dart';
-import 'package:nutri_boost/components/square_tile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'login_page.dart';
 
 class SignUpPage extends StatelessWidget {
@@ -13,18 +13,49 @@ class SignUpPage extends StatelessWidget {
   final passwordController = TextEditingController();
   final passwordConfirmationController = TextEditingController();
 
-
-
   // Sign user up method
-  void signUpUser(BuildContext context) {
-    // Perform sign-up logic here (e.g., validate input, create user account)
+  void signUpUser(BuildContext context) async {
+    final email = emailController.text.trim();
+    final password = passwordController.text.trim();
+    final passwordConfirmation = passwordConfirmationController.text.trim();
 
-    // If sign-up is successful, navigate to the LogInPage
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => LogInPage()),
-      (Route<dynamic> route) => false,
-    );
+    if (password != passwordConfirmation) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Passwords do not match'),
+      ));
+      return;
+    }
+
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      // You can also update the user's display name with the username here
+      await userCredential.user
+          ?.updateDisplayName(usernameController.text.trim());
+
+      // If sign-up is successful, navigate to the LogInPage
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => LogInPage()),
+        (Route<dynamic> route) => false,
+      );
+    } on FirebaseAuthException catch (e) {
+      String message;
+      if (e.code == 'weak-password') {
+        message = 'The password provided is too weak.';
+      } else if (e.code == 'email-already-in-use') {
+        message = 'The account already exists for that email.';
+      } else {
+        message = 'An error occurred. Please try again.';
+      }
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(message),
+      ));
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('An error occurred. Please try again.'),
+      ));
+    }
   }
 
   @override
@@ -49,12 +80,7 @@ class SignUpPage extends StatelessWidget {
                 children: [
                   const SizedBox(height: 10),
                   //Logo
-                  Positioned(
-                    left: 250,
-                    top: 0,
-                    child: Image.asset('lib/images/logo.png',
-                        width: 200, height: 200),
-                  ),
+                  Image.asset('lib/images/logo.png', width: 200, height: 200),
 
                   const SizedBox(height: 10),
 
@@ -67,7 +93,7 @@ class SignUpPage extends StatelessWidget {
 
                   const SizedBox(height: 10),
 
-                  // password textfield
+                  // email textfield
                   MyTextField(
                     controller: emailController,
                     hintText: 'Email',
@@ -76,7 +102,7 @@ class SignUpPage extends StatelessWidget {
 
                   const SizedBox(height: 10),
 
-                  // username textfield
+                  // password textfield
                   MyTextField(
                     controller: passwordController,
                     hintText: 'Password',
@@ -85,7 +111,7 @@ class SignUpPage extends StatelessWidget {
 
                   const SizedBox(height: 10),
 
-                  // password textfield
+                  // confirm password textfield
                   MyTextField(
                     controller: passwordConfirmationController,
                     hintText: 'Confirm password',
@@ -94,7 +120,7 @@ class SignUpPage extends StatelessWidget {
 
                   const SizedBox(height: 40),
 
-                  // Log In button
+                  // Sign Up button
                   MyButton(
                     onTap: () => signUpUser(
                         context), // Pass the context to the signUpUser method
@@ -103,7 +129,7 @@ class SignUpPage extends StatelessWidget {
 
                   const SizedBox(height: 10),
 
-                  // not a member? register now
+                  // already a member? log in now
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
