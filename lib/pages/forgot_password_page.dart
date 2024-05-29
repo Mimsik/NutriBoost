@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:nutri_boost/components/my_button.dart';
 import 'package:nutri_boost/components/my_textfield.dart';
-import 'package:nutri_boost/components/square_tile.dart';
 import 'login_page.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
@@ -9,12 +9,38 @@ class ForgotPasswordPage extends StatelessWidget {
 
   // text editing controllers
   final emailController = TextEditingController();
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
-  final passwordConfirmationController = TextEditingController();
 
-  // sign user in method
-  void ForgotPassword() {}
+  // reset password method
+  void resetPassword(BuildContext context) async {
+    final email = emailController.text.trim();
+
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Password reset email sent')),
+      );
+
+      // Navigate to LogInPage
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => LogInPage()),
+      );
+    } on FirebaseAuthException catch (e) {
+      String message;
+      if (e.code == 'user-not-found') {
+        message = 'No user found for that email.';
+      } else {
+        message = 'An error occurred. Please try again.';
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(message)),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('An error occurred. Please try again.')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,52 +64,23 @@ class ForgotPasswordPage extends StatelessWidget {
                 children: [
                   const SizedBox(height: 10),
                   //Logo
-                  Positioned(
-                    left: 250,
-                    top: 0,
-                    child: Image.asset('lib/images/logo.png',
-                        width: 200, height: 200),
-                  ),
+                  Image.asset('lib/images/logo.png', width: 200, height: 200),
 
                   const SizedBox(height: 10),
 
-                  // password textfield
+                  // email textfield
                   MyTextField(
                     controller: emailController,
                     hintText: 'Email',
                     obscureText: false,
                   ),
 
-                  const SizedBox(height: 10),
-
-                  // username textfield
-                  MyTextField(
-                    controller: passwordController,
-                    hintText: 'New Password',
-                    obscureText: true,
-                  ),
-
-                  const SizedBox(height: 10),
-
-                  // password textfield
-                  MyTextField(
-                    controller: passwordConfirmationController,
-                    hintText: 'Confirm password',
-                    obscureText: true,
-                  ),
-
                   const SizedBox(height: 40),
 
                   // Change password button
                   MyButton(
-                    onTap: () {
-                      // Navigate to LogInPage
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LogInPage()),
-                      );
-                    },
-                    text: 'Change password', // Text for the button
+                    onTap: () => resetPassword(context),
+                    text: 'Reset Password', // Text for the button
                   ),
 
                   const SizedBox(height: 10),
@@ -96,6 +93,7 @@ class ForgotPasswordPage extends StatelessWidget {
                         'Do you remember your password?',
                         style: TextStyle(
                           color: Colors.black,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(width: 4),
@@ -110,7 +108,7 @@ class ForgotPasswordPage extends StatelessWidget {
                         child: Text(
                           'Log In',
                           style: TextStyle(
-                            color: Color.fromARGB(255, 173, 126, 255),
+                            color: Color.fromARGB(255, 129, 61, 247),
                             fontWeight: FontWeight.bold,
                             decoration:
                                 TextDecoration.underline, // Add underline style

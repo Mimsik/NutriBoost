@@ -68,16 +68,17 @@ class LogInPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: screenHeight * 0.02),
+                  SizedBox(
+                      height: screenHeight * 0.001), // Moved the logo higher
 
                   // Logo
                   Image.asset(
                     'lib/images/logo.png',
                     width: screenWidth * 0.5,
-                    height: screenHeight * 0.25,
+                    height: screenHeight * 0.22,
                   ),
 
-                  SizedBox(height: screenHeight * 0.05),
+                  SizedBox(height: screenHeight * 0.03), // Adjusted spacing
 
                   // email textfield
                   Padding(
@@ -103,12 +104,12 @@ class LogInPage extends StatelessWidget {
                     ),
                   ),
 
-                  SizedBox(height: screenHeight * 0.02),
+                  SizedBox(height: screenHeight * 0.01),
 
                   // forgot password?
                   Padding(
                     padding:
-                        EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.09),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -125,7 +126,9 @@ class LogInPage extends StatelessWidget {
                             'Forgot your password?',
                             style: TextStyle(
                               color: Colors.black,
+                              fontWeight: FontWeight.bold,
                               decoration: TextDecoration.underline,
+                              fontFamily: 'JosefinSans',
                             ),
                           ),
                         ),
@@ -133,15 +136,22 @@ class LogInPage extends StatelessWidget {
                     ),
                   ),
 
-                  SizedBox(height: screenHeight * 0.05),
+                  SizedBox(height: screenHeight * 0.04), // Adjusted spacing
 
                   // Log In button
-                  MyButton(
-                    onTap: () => logInUser(context),
-                    text: 'Log In',
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: screenWidth * 0.1), // Narrowed button
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: MyButton(
+                        onTap: () => logInUser(context),
+                        text: 'Log In',
+                      ),
+                    ),
                   ),
 
-                  SizedBox(height: screenHeight * 0.02),
+                  SizedBox(height: screenHeight * 0.01),
 
                   // not a member? register now
                   Row(
@@ -149,7 +159,11 @@ class LogInPage extends StatelessWidget {
                     children: [
                       Text(
                         'No account yet?',
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold, // Bold text
+                          fontFamily: 'JosefinSans',
+                        ),
                       ),
                       SizedBox(width: screenWidth * 0.01),
                       GestureDetector(
@@ -164,9 +178,10 @@ class LogInPage extends StatelessWidget {
                         child: Text(
                           'Sign Up',
                           style: TextStyle(
-                            color: Color.fromARGB(255, 173, 126, 255),
+                            color: Color.fromARGB(255, 129, 61, 247),
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.underline,
+                            fontFamily: 'JosefinSans',
                           ),
                         ),
                       ),
