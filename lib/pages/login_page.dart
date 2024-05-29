@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' show AssetImage, BoxDecoration, BoxFit, BuildContext, Center, Color, Colors, Column, Container, DecorationImage, EdgeInsets, FontWeight, GestureDetector, Image, Key, MainAxisAlignment, MaterialPageRoute, MediaQuery, Navigator, Padding, Positioned, Row, SafeArea, Scaffold, SingleChildScrollView, SizedBox, StatelessWidget, Text, TextDecoration, TextEditingController, TextStyle, Widget;
+import 'package:flutter/material.dart';
 import 'package:nutri_boost/components/my_button.dart';
 import 'package:nutri_boost/components/my_textfield.dart';
 import 'package:nutri_boost/pages/home_page.dart';
@@ -6,7 +6,7 @@ import 'package:nutri_boost/pages/forgot_password_page.dart';
 import 'package:nutri_boost/pages/register_page.dart';
 
 class LogInPage extends StatelessWidget {
-  LogInPage({Key? key});
+  LogInPage({Key? key}) : super(key: key);
 
   // LogInUser method
   void LogInUser(BuildContext context) {
@@ -40,24 +40,20 @@ class LogInPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: screenHeight * 0.02),
+                  SizedBox(height: screenHeight * 0.01),
 
                   // Logo
-                  Positioned(
-                    left: screenWidth * 0.65,
-                    top: screenHeight * 0.02,
-                    child: Image.asset(
-                      'lib/images/logo.png',
-                      width: screenWidth * 0.5,
-                      height: screenHeight * 0.25,
-                    ),
+                  Image.asset(
+                    'lib/images/logo.png',
+                    width: screenWidth * 0.5,
+                    height: screenHeight * 0.25,
                   ),
 
                   SizedBox(height: screenHeight * 0.05),
 
                   // username textfield
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+                    padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.01),
                     child: MyTextField(
                       controller: usernameController,
                       hintText: 'Email',
@@ -69,7 +65,7 @@ class LogInPage extends StatelessWidget {
 
                   // password textfield
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+                    padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.01),
                     child: MyTextField(
                       controller: passwordController,
                       hintText: 'Password',
@@ -106,7 +102,7 @@ class LogInPage extends StatelessWidget {
                     ),
                   ),
 
-                  SizedBox(height: screenHeight * 0.05),
+                  SizedBox(height: screenHeight * 0.02),
 
                   // Log In button
                   MyButton(
@@ -114,7 +110,7 @@ class LogInPage extends StatelessWidget {
                     text: 'Log In',
                   ),
 
-                  SizedBox(height: screenHeight * 0.02),
+                  SizedBox(height: screenHeight * 0.01),
 
                   // not a member? register now
                   Row(
@@ -124,7 +120,7 @@ class LogInPage extends StatelessWidget {
                         'No account yet?',
                         style: TextStyle(color: Colors.black),
                       ),
-                      SizedBox(width: screenWidth * 0.01),
+                      SizedBox(width: screenWidth * 0.03),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(

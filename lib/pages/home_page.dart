@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'account_page.dart';
+import 'login_page.dart'; // Importă pagina de login
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -25,14 +26,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _loadEvents() {
-    // Incarca evenimentele aici
+    // Încarcă evenimentele aici
     final workoutDates = [
       DateTime.utc(2024, 5, 1),
       DateTime.utc(2024, 5, 2),
       DateTime.utc(2024, 5, 3),
     ];
 
-    // Initializeaza evenimentele
+    // Initializează evenimentele
     for (var date in workoutDates) {
       _events[date] = ['Workout'];
     }
@@ -377,7 +378,7 @@ class _HomePageState extends State<HomePage> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(screenWidth * 0.06),
             ),
-            minimumSize: Size(screenWidth * 0.7 * 0.6, 2 * screenWidth * 0.01), // Setarea dimensiunii butoanelor la 70% din lățimea drawerului
+            minimumSize: Size(screenWidth * 0.7, 40), // Setarea dimensiunii butoanelor la 70% din lățimea drawerului
           ),
           onPressed: () {
             if (text == 'Account') {
@@ -390,7 +391,10 @@ class _HomePageState extends State<HomePage> {
             } else if (text == 'Search macronutrients') {
               // Navigare la pagina de Search macronutrients
             } else if (text == 'Logout') {
-              // Funcționalitate pentru logout
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => LogInPage()),
+              );
             }
           },
           child: Padding(
